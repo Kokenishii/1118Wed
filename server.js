@@ -24,6 +24,16 @@ app.delete('/api/recipes/:id', recipeControllers.delete);
 app.get('/api/import', recipeControllers.import);
 app.get('/api/killall', recipeControllers.killall);
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  next();
+});
+
 mongoose
   .connect(dataBaseURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDb connected'))
